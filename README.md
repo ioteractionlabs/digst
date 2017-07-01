@@ -1,4 +1,4 @@
-# digst <img src='cashier(1).png'>
+# digst <img src='cashier.png'>
 Web tool for digitising all the common invoices proposed by GST
 <br> Store all your GST based invoices/bills on your local server or you can setup your own hosted server.You can also print your invoices/bills in defined pdf template as proposed by GST.
 <br> Dependencies:
