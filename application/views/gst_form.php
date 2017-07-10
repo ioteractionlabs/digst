@@ -4,12 +4,13 @@
 	<link rel="stylesheet" type="text/css" href="./assets/form_style.css" />
 	       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/dropzone.js"></script>
-  <link rel='stylesheet' href='./assets/dropzone/5.1.1/dropzone.css'>
-  <script>
- 	Dropzone.autoDiscover = false;
-	$("div#myId").dropzone({ url: "/file/post" });
-  </script>
-  <link href="./assests/dataTables.bootstrap.css" rel="stylesheet">
+  <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/dropzone.css'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
 <style>
 form{margin:80px;border: 2px solid black; border-radius:3px;
 padding:10px;}
@@ -20,17 +21,17 @@ padding:10px;}
 	border:1px solid black !important;
 	padding-left:2px !important;
 }
-.dz-max-files-reached {
+/*.dz-max-files-reached {
       pointer-events: none;
       cursor: default;
-}
+}*/
+.dz-progress{display:none;}
 th{
 	text-align:center !important;
 	vertical-align: middle !important;
 }
-.dropzone{
-	margin-top:20px!important;
-	width:220px !important;
+.dz-preview{
+	margin-left:160px !important;
 }
 </style>	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -40,9 +41,9 @@ th{
 <form id="form" method="POST">
 	<div class="my-grid-form">
 		<div data-row-span="4">
-			<div  id='test' data-field-span="1">
+			<!-- <div  id='test' data-field-span="1">
 					
-			</div>
+			</div> -->
 			<div  data-field-span="1">
 				<?php echo form_label('Company Name')?>
 				<?php echo form_input(array('name'=>'company_name'))?>
@@ -55,12 +56,13 @@ th{
 				<?php echo form_label('Complete Business Address Line-2')?>
 				<?php echo form_input(array('name'=>'address_2'))?>
 			</div>
-		</div>
-		<div data-row-span='4'>	
 			<div data-field-span="1">
 				<?php echo form_label('Email')?>
 				<?php echo form_input(array('name'=>'email'))?>
 			</div>
+		</div>
+		<div data-row-span='5'>	
+			
 			<div data-field-span="1">
 				<?php echo form_label('Website')?>
 				<?php echo form_input(array('name'=>'website'))?>
@@ -69,9 +71,13 @@ th{
 				<?php echo form_label('GSTIN No.')?>
 				<?php echo form_input(array('name'=>'gstin_no'))?>
 			</div>
-			<div  data-field-span="1">
-				<?php echo form_label('Transportation Mode :(apply for supply for goods)')?>
+			<div  data-field-span="2">
+				<?php echo form_label('Transportation Mode :(For goods supply)')?>
 				<?php echo form_input(array('name'=>'transportation_mode'))?>
+			</div>
+			<div data-field-span="1">
+				<?php echo form_label('Vehicle no.')?>
+				<?php echo form_input(array('name'=>'vehicle_no'))?>
 			</div>
 		</div>
 		<div data-row-span='3'>
@@ -80,20 +86,18 @@ th{
 				<?php echo form_label('Tax is Payable on Reverse Charge:(yes/no)')?>
 				<?php echo form_input(array('name'=>'tax_payable'))?>
 			</div>
-			<div data-field-span="1">
-				<?php echo form_label('Vehicle no.')?>
-				<?php echo form_input(array('name'=>'vehicle_no'))?>
-			</div>
+			
 			<div data-field-span="1">
 				<?php echo form_label('Invoice Serial No.')?>
 				<?php echo form_input(array('name'=>'invoice_serial_no'))?>
 			</div>
-		</div>	
-		<div data-row-span='4'>
 			<div data-field-span="1">
 				<?php echo form_label('Date and Time of Supply')?>
 				<?php echo form_input(array('name'=>'date_time_of_supply'))?>
 			</div>
+		</div>	
+		<div data-row-span='4'>
+			
 			<div  data-field-span="1">
 				<?php echo form_label('Invoice Date')?>
 				<?php echo form_input(array('name'=>'invoice_date'))?>
@@ -225,7 +229,7 @@ th{
 		</fieldset>
 		<fieldset>
 			<div data-row-span='6'>	
-			<div data-field-span="1">
+			<div data-field-span="1" id='test'>
 				<?php echo form_label('Invoice Value(in words)')?>
 				<?php echo form_input(array('name'=>'invoice_value'))?>
 			</div>
@@ -247,7 +251,7 @@ th{
 			</div>
 		</div>	
 			
-		<div data-row-span='5'>	
+		<div data-row-span='6'>	
 			<div data-field-span="1">
 				<?php echo form_label('Other charges')?>
 				<?php echo form_input(array('name'=>'other_charges'))?>
@@ -256,11 +260,11 @@ th{
 				<?php echo form_label('Invoice Total')?>
 				<?php echo form_input(array('name'=>'net_total'))?>
 			</div>
-			<div data-field-span="1">
+			<div data-field-span="2">
 				<?php echo form_label('Certified that above given are true and correct')?>
 				<?php echo form_input(array('name'=>'certification'))?>
 			</div>
-			<div data-field-span="1">
+			<div data-field-span="2">
 				<?php echo form_label('Electronic Reference Number')?>
 				<?php echo form_input(array('name'=>'reference_number'))?>
 			</div>
@@ -271,10 +275,10 @@ th{
 				<?php echo form_label('Your term and condition of sale')?>
 				<?php echo form_textarea(array('name'=>'terms_condition'))?>
 			</div>
-			<div data-field-span="1">
+			<!-- <div data-field-span="1">
 				<?php echo form_label('Signature')?>
 				<?php echo form_input(array('name'=>'signature'))?>
-			</div>
+			</div> -->
 			<div data-field-span="1">
 				<?php echo form_label('Authorised Signatory Name')?>
 				<?php echo form_input(array('name'=>'authorised_name'))?>
@@ -284,28 +288,170 @@ th{
 				<?php echo form_input(array('name'=>'authorised_designation'))?>
 			</div>
 		</div>
+
+		<fieldset>
+		<legend>Upload Image</legend>
+		<div data-row-span='2'>
+			<div data-field-span='1'>
+				<div id='myId' class='dropzone'>
+						<?php echo form_label('Logo')?>
+						<div id='error'></div>
+				</div>
+			</div>
+			<div data-field-span='1'>	
+				<div id='myId1' class='dropzone'>
+							<?php echo form_label('Sign')?>
+							<div id='error1'></div>
+				</div>
+			</div>
+		</div>
+	</fieldset>
 	</div>	
 		
 
-		<button type='button' value="save" onclick="save()" class="btn btn-primary">Save</button>
+		<button id='check' type='button' value="save" onclick="save()" class="btn btn-primary">Save</button>
+		<div id='check1'>
+		</div>
 			  <!-- works only on button -->	
 </form>
-<div id='myid' class='dropzone'></div>
-	<!-- <form action="http://localhost/ci/index.php/gst_form_controller/get_img" class="dropzone" id="my-awesome-dropzone">
-			    	  <?php echo form_label('Upload Photo')?>	    	  
-				  <input type='text' id='uploading' style='display:none'>
-				  </form>
+<div class="close_button" id="removeAllImages">Remove All</div>
 
-				  <form action="http://localhost/ci/index.php/gst_form_controller/get_img" class="dropzone" id="my-awesome-dropzone">
-			    	  <?php echo form_label('Upload Sign')?>	    	  
-				  </form> -->	
 </body>
 <script>
 var row_cnt=1;
 	var total_1=0;
 var total=0;
+var img_photo;
+var img_sign;
 total=total+total_1;
+Dropzone.options.myAwesomeDropzone = false;
+Dropzone.autoDiscover = false;
+var preventDrop = function(e) {
+   e.preventDefault();
+};
+function setEvent(){
+	return false;
+}
+function removeEvent(){
+	return false;
+}
+				       var myDropzone = new Dropzone("div#myId",{ 
+				       		url: "http://localhost/ci/index.php/gst_form_controller/get_img",
+						    paramName: "file", // The name that will be used to transfer the file
+						    maxFilesize: 2, // MB
+						    addRemoveLinks: true,
+						   maxFiles:1,
+						    uploadMultiple: false,
+						    thumbnailWidth: "120",
+ 							thumbnailHeight: "120",
+ 							dictRemoveFile: "Remove file",
+ 							dictFileTooBig: "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
+ 							dictMaxFilesExceeded: "You can not upload any more files.",
+						    accept: function(file, done) {
+						 		
+						  $('#check').click(function(){
+						    		done();
+						    	});
+						   
+				  			},
+							init: function() {
+								myDropzone = this;
+							    this.on("addedfile", function(file,response) { 
+							    	console.log(file);
+							        document.getElementById('error').innerHTML=file.name;
+							   		img_photo=file.name;
+							   		
+							   		if (file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/jpg"){
+							   		
+							   		}
+							   		else{
+							   			// alert('jpeg,png,jpg allowed');
+							   			this.removeAllFiles(true);	
+							   			this.element.addEventListener('click', this.listeners[1].events.click);
+										this.element.addEventListener('drop', this.listeners[0].events.drop);
+										this.element.removeEventListener('drop', preventDrop );
+							   		}
+							   		
+							    });
+							    // ,
+						   //      this.on("success", function(file, response) {
+						   //       	console.log(response);
+						   //       	console.log(response);
+						   //          document.getElementById('error').innerHTML=response;
+						   //      }),
+						        this.on('drop',function(file){
+						        	this.element.removeEventListener('click', this.listeners[1].events.click);
+									this.element.removeEventListener('drop', this.listeners[0].events.drop);
+									this.element.addEventListener('drop', preventDrop );
+						        });
+						        
+							},
+							removedfile: function(file) {
+						
+							    var _ref;
+							    this.removeAllFiles(true); 
+							    this.element.addEventListener('click', this.listeners[1].events.click);
+										this.element.addEventListener('drop', this.listeners[0].events.drop);
+										this.element.removeEventListener('drop', preventDrop );
+							    document.getElementById('error').innerHTML='';
+							    return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+							}
+				       	});
+						var myDropzone = new Dropzone("div#myId1",{ 
+						    url: "http://localhost/ci/index.php/gst_form_controller/get_img",
+						  	paramName: "file", // The name that will be used to transfer the file
+						  	maxFilesize: 2, // MB
+						    addRemoveLinks: true,
+						   // autoProcessQueue : false,
+						   			   maxFiles:1,
+						    uploadMultiple: false,
+						    thumbnailWidth: "120",
+ 							thumbnailHeight: "120",
+ 							dictRemoveFile: "Remove file",
+ 							dictFileTooBig: "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
+ 							dictMaxFilesExceeded: "You can not upload any more files.",
+						    accept: function(file, done) {
+						 
+							    $('#check').click(function(){
+						    		done();
+						    	});
 
+						  	},
+						  	init: function() {
+								myDropzone = this;
+							    this.on("addedfile", function(file,response) { 
+
+							        document.getElementById('error1').innerHTML=file.name;
+							   		img_sign=file.name;
+							   		if (file.type == "image/jpeg" || file.type == "image/png" || file.type == "image/jpg"){
+							   		
+							   		}
+							   		else{
+							   			alert('jpeg,png,jpg allowed');
+							   			this.removeAllFiles(true);	
+							   			this.element.addEventListener('click', this.listeners[1].events.click);
+										this.element.addEventListener('drop', this.listeners[0].events.drop);
+										this.element.removeEventListener('drop', preventDrop );
+							   		}
+							   		$('.dz-error-mark').click(function(){
+							   			this.removeFile(file);
+							   		});
+							   		
+							    });
+						       
+							},
+							removedfile: function(file) {
+						
+							    var _ref;
+							    this.removeAllFiles(true); 
+							     this.element.addEventListener('click', this.listeners[1].events.click);
+										this.element.addEventListener('drop', this.listeners[0].events.drop);
+										this.element.removeEventListener('drop', preventDrop );
+							    document.getElementById('error1').innerHTML='';
+							    return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+							}
+						});
+						       
 $(document).ready(function(){
 				
 
@@ -349,7 +495,7 @@ $(document).ready(function(){
 		totalcal(total_1);
 		$('#tableentry_iamount_'+last).val(total_1).prop('readonly',true);
 	});
-
+	
 	$('#form').on('focusout','[name="tableentry_rate"]',function(){
 	
 		var id='#'+$(this).prop('id');
@@ -374,7 +520,7 @@ $(document).ready(function(){
 		var id='#'+$(this).prop('id');
 		var last=id.slice(id.length-1);
 		var to=Number(total)+Number($("[name='loading_charges']").val())+Number($("[name='freight_charges']").val())+Number($("[name='insurance_charges']").val())+Number($("[name='other_charges']").val());
-		$("[name='net_total']").val(to).prop('readonly',true);
+		$("[name='net_total']").val(Math.round(to)).prop('readonly',true);
 	});
 });
 function totalcal(data){
@@ -406,10 +552,13 @@ var table_dynamic={
 		type:'POST',
 		data:{ mydata:wholeobject,
 				mytable:table_dynamic,
-				myvalue:row_cnt},
+				myvalue:row_cnt,
+				photo:img_photo,
+				sign:img_sign},
 		dataType:'JSON',
 		success:function(data){
 			console.log(data);
+			$('#check1').append("<a href='http://localhost/ci/index.php/gst_form_controller/get_pdf/"+data+"' target=_new>click here</a>");
 		},
 		error:function(){
 			console.log('error');
@@ -436,6 +585,20 @@ function delete_row(){
 		
 		$('#dynamic_table tr:last').remove();
 	}
+}
+function disp(id){
+	$.ajax({
+		url:'gst_form_controller/get_pdf/'+id,
+		type:'POST',
+		dataType:'JSON',
+		success:function(data){
+			console.log('hello');
+			$('#check1').append("");
+		},
+		error:function(){
+			console.log('error');
+		}
+	});
 }
 </script>
 </html>

@@ -53,6 +53,23 @@ class Gst_form_model extends CI_model{
 		$this->db->insert('gst_form_partial',$a);
 			}
 		}
+		return $this->db->insert_id();
 	}
+	public function display($key){
+
+		$this->db->from('gst_form');
+		$this->db->where('id',$key);
+		$query = $this->db->get();
+		$this->db->from('gst_form_partial');
+		$this->db->where('gst_id',$key);
+		$query1= $this->db->get();
+		$a=array();
+		
+		array_push($a,$query->row(),$query1->result());
+		
+		return $a;
+
+	}
+
 }
 ?>

@@ -1,20 +1,23 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Gst_form_controller extends CI_Controller{
+	
+
 			public function __construct()
 	{
 		parent::__construct();
+	
 	}
 
 		public function index(){	
 			 $data = array('upload_data' =>''); 
 			$this->load->view('gst_form',$data);
 			$this->load->helper('url');
-
 			
+	
 		}
 		public function get_data(){
+			
 			$data_whole=$this->input->post('mydata');
 			$data_table=$this->input->post('mytable');
 			$data_row=$this->input->post('myvalue');
@@ -52,20 +55,45 @@ class Gst_form_controller extends CI_Controller{
 				'certification'=>$data_whole['certification'],
 				'reference_number'=>$data_whole['reference_number'],
 				'terms_condition'=>$data_whole['terms_condition'],
-				'signature'=>$data_whole['signature'],
+				'signature'=>$this->input->post('sign'),
+				'photo'=>$this->input->post('photo'),
 				'authorised_name'=>$data_whole['authorised_name'],
 				'authorised_designation'=>$data_whole['authorised_designation']
 				);
-
-
+			
 			$this->load->model('gst_form_model');
 			$insert1=$this->gst_form_model->save($a);
-			$this->gst_form_model->save2($insert1,$data_table,$data_row);
+			$insert2=$this->gst_form_model->save2($insert1,$data_table,$data_row);	
+			$pp=20;
 
+			echo $insert1;
+			
 		}
-		public function get_img(){
-		 $config['upload_path']   = APPPATH.'uploads/'; 
-         $config['allowed_types'] = 'gif|jpg|png'; 
+		function get_pdf($id){
+			$this->load->model('gst_form_model');
+			$data_is=$this->gst_form_model->display($id);
+
+			$data=array('form' => $data_is[0],'table' => $data_is[1],'image'=>APPPATH.'uploads/');
+			$html=$this->load->view('invoice.php', $data, true);
+		
+			        $pdfFilePath = "output_pdf_name.pdf";
+			         $this->load->library('m_pdf');
+			   
+			          $this->m_pdf->pdf->WriteHTML($html);
+			          $this->m_pdf->pdf->Output($pdfFilePath, "D"); 
+
+	
+			        
+			
+		}
+		public function get_img(){	
+
+		 $name = $_FILES["file"]["name"];
+		
+    	 $ext = end((explode(".", $name))); # extra () to prevent notice
+		 $config['upload_path']   = APPPATH.'uploads/';
+
+         $config['allowed_types'] = 'gif|jpg|png|jpeg'; 
          $config['max_size']      = 100; 
          $config['max_width']     = 1024; 
          $config['max_height']    = 768;  
@@ -73,14 +101,16 @@ class Gst_form_controller extends CI_Controller{
 			
          if ( ! $this->upload->do_upload('file')) {
             $error = array('error' => $this->upload->display_errors()); 
-            print_r($error); 
+              // $this->load->view('upload_form', $error);
+              print_r($error); 
          }
 			
          else { 
-            $data = array('upload_data' => ''); 
-            $this->load->view('gst_form', $data); 
+        	
+            $data = array('upload_data' => 'gfhbn'); 
+           print_r($data);
 		}
 	}
-		
+
 	}
 ?>
