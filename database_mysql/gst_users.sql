@@ -25,27 +25,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gst_form_partial`
+-- Table structure for table `gst_users`
 --
 
-CREATE TABLE `gst_form_partial` (
+CREATE TABLE `gst_users` (
   `id` int(11) NOT NULL,
-  `gst_id` int(11) NOT NULL,
-  `tableentry_index` int(11) NOT NULL,
-  `tableentry_description` varchar(10) NOT NULL,
-  `tableentry_hsncode` varchar(10) NOT NULL,
-  `tableentry_quantity` int(11) NOT NULL,
-  `tableentry_uom` varchar(10) NOT NULL,
-  `tableentry_rate` int(11) NOT NULL,
-  `tableentry_total` int(11) NOT NULL,
-  `tableentry_discount` int(11) NOT NULL,
-  `tableentry_taxable` int(11) NOT NULL,
-  `tableentry_crate` int(11) NOT NULL,
-  `tableentry_camount` int(11) NOT NULL,
-  `tableentry_srate` int(11) NOT NULL,
-  `tableentry_samount` int(11) NOT NULL,
-  `tableentry_irate` int(11) NOT NULL,
-  `tableentry_iamount` int(11) NOT NULL
+  `email` varchar(15) NOT NULL,
+  `password` varchar(10) NOT NULL,
+  `business_name` varchar(10) NOT NULL,
+  `name` text NOT NULL,
+  `business_address_1` varchar(25) NOT NULL,
+  `business_address_2` varchar(25) NOT NULL,
+  `website` varchar(15) NOT NULL,
+  `mobile_no` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -53,9 +45,9 @@ CREATE TABLE `gst_form_partial` (
 --
 
 --
--- Indexes for table `gst_form_partial`
+-- Indexes for table `gst_users`
 --
-ALTER TABLE `gst_form_partial`
+ALTER TABLE `gst_users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -63,10 +55,10 @@ ALTER TABLE `gst_form_partial`
 --
 
 --
--- AUTO_INCREMENT for table `gst_form_partial`
+-- AUTO_INCREMENT for table `gst_users`
 --
-ALTER TABLE `gst_form_partial`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;COMMIT;
+ALTER TABLE `gst_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

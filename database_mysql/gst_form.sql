@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2017 at 09:23 PM
+-- Generation Time: Jul 10, 2017 at 05:42 PM
 -- Server version: 5.7.18
 -- PHP Version: 5.6.30
 
@@ -64,6 +64,7 @@ CREATE TABLE `gst_form` (
   `certification` varchar(100) NOT NULL,
   `reference_number` varchar(40) NOT NULL,
   `terms_condition` varchar(255) NOT NULL,
+  `photo` varchar(40) NOT NULL,
   `signature` varchar(255) NOT NULL,
   `authorised_name` varchar(30) NOT NULL,
   `authorised_designation` varchar(30) NOT NULL
@@ -87,7 +88,7 @@ ALTER TABLE `gst_form`
 -- AUTO_INCREMENT for table `gst_form`
 --
 ALTER TABLE `gst_form`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
